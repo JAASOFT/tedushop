@@ -20,9 +20,9 @@ namespace TeduShop.Model.Models
         public string Name { get; set; }
         [MaxLength(50)]
         public string Type { get; set; }
-        
-        public virtual IEnumerable<PostTag> PostTag { get; set; }
-        public virtual IEnumerable<ProductTag> ProductTags { get; set; }
+
+        //public virtual IEnumerable<PostTag> PostTag { get; set; }
+        //public virtual IEnumerable<ProductTag> ProductTags { get; set; }
 
     }
 }

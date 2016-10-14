@@ -9,7 +9,7 @@ using TeduShop.Data.Infrastructure;
 
 namespace TeduShop.Data.Infrastructure
 {
-    public abstract class RepositoryBase<T> where T: class
+    public abstract class RepositoryBase<T>: IRepository<T> where T: class
     {
         #region Properties
         private TeduShopDbContext dataContext;
@@ -126,6 +126,21 @@ namespace TeduShop.Data.Infrastructure
         public bool CheckContains(Expression<Func<T, bool>> predicate)
         {
             return dataContext.Set<T>().Count<T>(predicate) > 0;
+        }
+
+        public IQueryable<T> GetAll(string includes = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        IQueryable<T> IRepository<T>.GetMulti(Expression<Func<T, bool>> predicate, string[] includes)
+        {
+            throw new NotImplementedException();
+        }
+
+        IQueryable<T> IRepository<T>.GetMultiPaging(Expression<Func<T, bool>> filter, out int total, int index, int size, string[] includes)
+        {
+            throw new NotImplementedException();
         }
         #endregion
 
