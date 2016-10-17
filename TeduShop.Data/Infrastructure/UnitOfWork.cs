@@ -19,8 +19,7 @@ namespace TeduShop.Data.Infrastructure
         public void Commit()
         {
             DbContext.SaveChanges();
-
-
+            
         }
 
     }
