@@ -17,7 +17,7 @@ namespace TeduShop.Service
         IEnumerable<Post> GetAll();
         IEnumerable<Post> GetAllPaging(int page, int pageSize, out int totalRow);
         Post GetByID(int ID);
-        IEnumerable<Post> GetAllByTagPaginf(int page, int pageSize, out int totalRow);
+        IEnumerable<Post> GetAllByTagPaginf(string tag, int page, int pageSize, out int totalRow);
         void SaveChang();
 
 
@@ -28,50 +28,51 @@ namespace TeduShop.Service
     {
         IPostRepository _postRepository;
         //IUnitOfWork _unitOfWork;
-        IUnitOfWork _unitOfWork
-        public IPostService e(IPostRepository postRepository, IUnitOfWork unitOfWork)
+        IUnitOfWork _unitOfWork;
+        public PostService(IPostRepository postRepository, IUnitOfWork unitOfWork)
         {
             this._postRepository = postRepository;
-            this._unitOfWork=unitOfWork
+            this._unitOfWork = unitOfWork;
         }
         public void Add(Post post)
         {
-            throw new NotImplementedException();
+            _postRepository.Add(post);
         }
+        
 
         public void Delete(int Id)
         {
-            throw new NotImplementedException();
+            _postRepository.Delete(Id);
         }
 
         public IEnumerable<Post> GetAll()
         {
-            throw new NotImplementedException();
+            return _postRepository.GetAll(new string[] { "PostCategory" });
         }
 
-        public IEnumerable<Post> GetAllByTagPaginf(int page, int pageSize, out int totalRow)
+        public IEnumerable<Post> GetAllByTagPaginf(string tag,int page, int pageSize, out int totalRow)
         {
-            throw new NotImplementedException();
+            return _postRepository.GetMultiPaging(x=>x.Status,out totalRow, page,pageSize);
         }
 
         public IEnumerable<Post> GetAllPaging(int page, int pageSize, out int totalRow)
         {
-            throw new NotImplementedException();
+            return _postRepository.GetMultiPaging(x => x.Status, out totalRow, page, pageSize);
         }
 
         public Post GetByID(int ID)
         {
-            throw new NotImplementedException();
+            return _postRepository.GetSingleByID(ID);
         }
 
         public void SaveChang()
         {
-            throw new NotImplementedException();
+            _unitOfWork.Commit();
         }
 
         public void Update(Post post)
         {
-            throw new NotImplementedException();
+            _postRepository.Update(post);
         }
     }
 }

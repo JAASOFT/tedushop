@@ -38,6 +38,11 @@ namespace TeduShop.Data.Infrastructure
 
 
         }
+        public virtual void Delete(int ID)
+        {
+            var entity = dbSet.Find(ID);
+            dbSet.Remove(entity);
+        }
         public virtual void DeleteMulti(Expression<Func<T, bool>> where)
         {
             IEnumerable<T> objects = dbSet.Where<T>(where).AsEnumerable();

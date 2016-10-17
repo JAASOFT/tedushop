@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace TeduShop.Data.Infrastructure
 {
-    interface IUnitOfWork
+    public interface IUnitOfWork
     {
+            void Commit();
+       
     }
 }

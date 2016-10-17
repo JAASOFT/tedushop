@@ -8,9 +8,9 @@ using TeduShop.Model.Models;
 
 namespace TeduShop.Data.Repositories
 {
-    public interface IPostRepository:IRepository<Post>
+    public interface IPostRepository : IRepository<Post>
     {
-
+        IEnumerable<Post> GetAll(string[] v);
     }
     public class PostRepository: RepositoryBase<Post>, IPostRepository
     {
