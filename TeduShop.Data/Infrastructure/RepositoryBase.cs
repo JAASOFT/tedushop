@@ -23,25 +23,25 @@ namespace TeduShop.Data.Infrastructure
             dbSet = DbContext.Set<T>();
         }
         #region Implementation
-        public virtual void Add(T entity)
+        public virtual T Add(T entity)
         {
-            dbSet.Attach(entity);
+           return  dbSet.Attach(entity);
         }
         public virtual void Update(T entity)
         {
             dbSet.Attach(entity);
             dataContext.Entry(entity).State = EntityState.Modified;
         }
-        public virtual void Delete(T entity)
+        public virtual T Delete(T entity)
         {
-            dbSet.Remove(entity);
+            return dbSet.Remove(entity);
 
 
         }
-        public virtual void Delete(int ID)
+        public virtual T Delete(int ID)
         {
             var entity = dbSet.Find(ID);
-            dbSet.Remove(entity);
+           return dbSet.Remove(entity);
         }
         public virtual void DeleteMulti(Expression<Func<T, bool>> where)
         {
@@ -90,8 +90,11 @@ namespace TeduShop.Data.Infrastructure
             }
             return dataContext.Set<T>().FirstOrDefault(expression);
         }
-
-        public virtual IEnumerable<T> GetMulti(Expression<Func<T, bool>> predicate, string[] includes = null)
+        //IEnumerable<T> IRepository<T>.GetMulti(Expression<Func<T, bool>> predicate, string[] includes)
+        //{
+        //    throw new NotImplementedException();
+        //}
+        public IEnumerable<T> GetMulti(Expression<Func<T, bool>> predicate, string[] includes = null)
         {
             //HANDLE INCLUDES FOR ASSOCIATED OBJECTS IF APPLICABLE
             if (includes != null && includes.Count() > 0)
@@ -105,7 +108,7 @@ namespace TeduShop.Data.Infrastructure
             return dataContext.Set<T>().Where<T>(predicate).AsQueryable<T>();
         }
 
-        public virtual IEnumerable<T> GetMultiPaging(Expression<Func<T, bool>> predicate, out int total, int index = 0, int size = 20, string[] includes = null)
+        public IEnumerable<T> GetMultiPaging(Expression<Func<T, bool>> predicate, out int total, int index = 0, int size = 20, string[] includes = null)
         {
             int skipCount = index * size;
             IQueryable<T> _resetSet;
@@ -133,20 +136,17 @@ namespace TeduShop.Data.Infrastructure
             return dataContext.Set<T>().Count<T>(predicate) > 0;
         }
 
-        public IQueryable<T> GetAll(string includes = null)
-        {
-            throw new NotImplementedException();
-        }
+        //public IQueryable<T> GetAll(string includes = null)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        IQueryable<T> IRepository<T>.GetMulti(Expression<Func<T, bool>> predicate, string[] includes)
-        {
-            throw new NotImplementedException();
-        }
+      
 
-        IQueryable<T> IRepository<T>.GetMultiPaging(Expression<Func<T, bool>> filter, out int total, int index, int size, string[] includes)
-        {
-            throw new NotImplementedException();
-        }
+        //IEnumerable<T> IRepository<T>.GetMultiPaging(Expression<Func<T, bool>> filter, out int total, int index, int size, string[] includes)
+        //{
+        //    throw new NotImplementedException();
+        //}
         #endregion
 
     }
